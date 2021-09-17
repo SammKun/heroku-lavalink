@@ -1,8 +1,5 @@
 const fs = require("fs")
 const fetch = require("node-fetch")
-const { default: { stream } } = require("got");
-const { createWriteStream } = require("fs");
-const { execSync } = require("child_process");
 
 let application = fs.readFileSync("./application.yml", "utf8")
 
@@ -14,6 +11,24 @@ if (process.env.PASS) {
     application = application.replace("youshallnotpass", process.env.PASS)
 }
 fs.writeFileSync("./application.yml", application)
+
+const download = function (url, dest, cb) {
+    const file = fs.createWriteStream(dest);
+    fetch(url).then(res=>{
+        res.body.pipe(file)
+        console.log("Downloading Lavalink.jar")
+        file.on("finish", function () {
+            console.log("Downloaded Lavalink.jar")
+            file.close(cb);
+        });
+        file.on("error", function(err){
+            console.error("Filestream error while downloading Lavalink: "+err)
+        })
+    })
+    .catch(function(err){
+        console.error("Fetch error while downloading Lavalink: "+err)
+    })
+};
 
 function startLavalink() {
     const spawn = require("child_process").spawn;
@@ -39,12 +54,6 @@ function startLavalink() {
     });
 }
 
-const url = "https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar";
-
-const start = () => {
-    const download = stream(url).pipe(createWriteStream('Lavalink.jar'));
-    download.on("finish", () => {
-        execSync("java -jar Lavalink.jar", { stdio: "inherit" });
-    });
-};
-start();
+ let priorDL_URL = `https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar`
+            console.log("Found: "+priorDL_URL)
+            download(priorDL_URL, "./Lavalink.jar", startLavalink)

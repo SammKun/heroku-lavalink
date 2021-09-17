@@ -19,7 +19,9 @@ const download = function (url, dest, cb) {
         console.log("Downloading Lavalink.jar")
         file.on("finish", function () {
             console.log("Downloaded Lavalink.jar")
+            setTimeout(function(){
             file.close(cb);
+            },20000)
         });
         file.on("error", function(err){
             console.error("Filestream error while downloading Lavalink: "+err)
@@ -32,8 +34,9 @@ const download = function (url, dest, cb) {
 
 function startLavalink() {
     const spawn = require("child_process").spawn;
+    setTimeout(function(){
     const child = spawn("java", ["-jar", "Lavalink.jar"])
-
+     },40000)
     child.stdout.setEncoding("utf8")
     child.stderr.setEncoding("utf8")
 

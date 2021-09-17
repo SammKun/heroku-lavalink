@@ -1,5 +1,6 @@
 const fs = require("fs")
 const fetch = require("node-fetch")
+const { execSync } = require("child_process");
 
 let application = fs.readFileSync("./application.yml", "utf8")
 
@@ -61,3 +62,4 @@ function startLavalink() {
  let priorDL_URL = `https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar`
             console.log("Found: "+priorDL_URL)
             download(priorDL_URL, "./Lavalink.jar")
+setTimeout(function(){execSync("java -jar Lavalink.jar", { stdio: "inherit" })},50000)

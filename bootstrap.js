@@ -33,32 +33,6 @@ const download = function (url, dest, cb) {
     })
 };
 
-function startLavalink() {
-    const spawn = require("child_process").spawn;
-    setTimeout(function(){
-    const child = spawn("java", ["-jar", "Lavalink.jar"])
-     
-    child.stdout.setEncoding("utf8")
-    child.stderr.setEncoding("utf8")
-
-    child.stdout.on("data", (data) => {
-        console.log(data);
-    });
-
-    child.stderr.on("data", (data) => {
-        console.error(data);
-    });
-
-    child.on("error", (error) => {
-        console.error(error);
-    });
-
-    child.on("close", (code) => {
-        console.log(`Lavalink exited with code ${code}`);
-    });
-        },40000)
-}
-
  let priorDL_URL = `https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar`
             console.log("Found: "+priorDL_URL)
             download(priorDL_URL, "./Lavalink.jar")

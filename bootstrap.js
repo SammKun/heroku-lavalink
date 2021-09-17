@@ -36,7 +36,7 @@ function startLavalink() {
     const spawn = require("child_process").spawn;
     setTimeout(function(){
     const child = spawn("java", ["-jar", "Lavalink.jar"])
-     },40000)
+     
     child.stdout.setEncoding("utf8")
     child.stderr.setEncoding("utf8")
 
@@ -55,6 +55,7 @@ function startLavalink() {
     child.on("close", (code) => {
         console.log(`Lavalink exited with code ${code}`);
     });
+        },40000)
 }
 
  let priorDL_URL = `https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar`

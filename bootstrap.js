@@ -36,4 +36,4 @@ const download = function (url, dest, cb) {
  let priorDL_URL = `https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar`
             console.log("Found: "+priorDL_URL)
             download(priorDL_URL, "./Lavalink.jar")
-setTimeout(function(){execSync("java -jar Lavalink.jar", { stdio: "inherit" })},50000)
+setTimeout(function(){execSync("java -jar ./Lavalink.jar", { stdio: "inherit" })},50000)

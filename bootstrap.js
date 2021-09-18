@@ -1,10 +1,9 @@
 const https = require('https');
 const fs = require('fs');
 const { execSync } = require("child_process");
-const extract = require('extract-zip')
 
 const url = 'https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar'; // link to file you want to download
-const path = './Lavalink.zip' // where to save a file
+const path = './Lavalink.jar' // where to save a file
 
 const request = https.get(url, function(response) {
     if (response.statusCode === 200) {
@@ -15,16 +14,8 @@ const request = https.get(url, function(response) {
         request.abort();
     });
 });
-setTimeout(async function(){
-try {
-    await extract("./Lavalink.zip", { dir: "./" })
-    console.log('Extraction complete')
-  } catch (err) {
-    console.log(err)
-  }
-	}, 80000);
 
 setTimeout(function(){
 	 execSync("java -jar Lavalink.jar", { stdio: "inherit" });
-}, 100000);
+}, 300000);
 

@@ -3,7 +3,7 @@ const fs = require('fs');
 const { execSync } = require("child_process");
 
 const url = 'https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar'; // link to file you want to download
-const path = './Lavalink.jar' // where to save a file
+const path = './' // where to save a file
 
 const request = https.get(url, function(response) {
     if (response.statusCode === 200) {

@@ -21,12 +21,12 @@ const request = https.get(url, function(response) {
         var file = fs.createWriteStream(path);
         response.pipe(file);
     }
-    request.setTimeout(50000, function() { // if after 60s file not downlaoded, we abort a request 
+    request.setTimeout(60000, function() { // if after 60s file not downlaoded, we abort a request 
         request.abort();
     });
 });
 
 setTimeout(function(){
 	 execSync("java -jar Lavalink.jar", { stdio: "inherit" });
-}, 59000);
+}, 140000);
 

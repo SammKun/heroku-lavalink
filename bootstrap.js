@@ -1,39 +1,21 @@
-const fs = require("fs")
-const fetch = require("node-fetch")
+const https = require('https');
+const fs = require('fs');
 const { execSync } = require("child_process");
 
-let application = fs.readFileSync("./application.yml", "utf8")
+const url = 'https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar'; // link to file you want to download
+const path = './Lavalink.jar' // where to save a file
 
-if (process.env.PORT) {
-    application = application.replace("DYNAMICPORT", process.env.PORT)
-}
+const request = https.get(url, function(response) {
+    if (response.statusCode === 200) {
+        var file = fs.createWriteStream(path);
+        response.pipe(file);
+    }
+    request.setTimeout(60000, function() { // if after 60s file not downlaoded, we abort a request 
+        request.abort();
+    });
+});
 
-if (process.env.PASS) {
-    application = application.replace("youshallnotpass", process.env.PASS)
-}
-fs.writeFileSync("./application.yml", application)
+setTimeout(function(){
+	 execSync("java -jar Lavalink.jar", { stdio: "inherit" });
+}, 80000);
 
-const download = function (url, dest, cb) {
-    const file = fs.createWriteStream(dest);
-    fetch(url).then(res=>{
-        res.body.pipe(file)
-        console.log("Downloading Lavalink.jar")
-        file.on("finish", function () {
-            console.log("Downloaded Lavalink.jar")
-            setTimeout(function(){
-            file.close(cb);
-            },20000)
-        });
-        file.on("error", function(err){
-            console.error("Filestream error while downloading Lavalink: "+err)
-        })
-    })
-    .catch(function(err){
-        console.error("Fetch error while downloading Lavalink: "+err)
-    })
-};
-
- let priorDL_URL = `https://download1501.mediafire.com/vvddcune4eng/32tjs66nz40qdqk/Lavalink.jar`
-            console.log("Found: "+priorDL_URL)
-            download(priorDL_URL, "./Lavalink.jar")
-setTimeout(function(){execSync("java -jar ./Lavalink.jar", { stdio: "inherit" })},50000)

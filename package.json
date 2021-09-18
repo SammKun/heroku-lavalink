@@ -10,6 +10,7 @@
   "license": "MIT",
  "dependencies": {
     "node-fetch": "^2.6.1",
-     "got": "^11.8.1"
+     "got": "^11.8.1",
+   "extract-zip": "^2.0.1"
   }
 }

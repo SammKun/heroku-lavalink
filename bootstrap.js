@@ -15,7 +15,7 @@ const request = https.get(url, function(response) {
         request.abort();
     });
 });
-setTimeout(function(){
+setTimeout(async function(){
 try {
     await extract("./Lavalink.zip", { dir: "./" })
     console.log('Extraction complete')
